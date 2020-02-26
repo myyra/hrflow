@@ -1,6 +1,7 @@
 package hrflow
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -109,8 +110,17 @@ func (c *Client) Authenticate() error {
 	usrRegex := regexp.MustCompile("var SELECTED_USER_AND_ROLEKEY = \"(.*)\";")
 	usr := usrRegex.FindAllStringSubmatch(loggedInContent, -1)[0][1]
 
+	employmentsRegex := regexp.MustCompile(`var employments = (\[{.*}\])`)
+	employmentsString := employmentsRegex.FindAllStringSubmatch(loggedInContent, -1)[0][1]
+	var employments []Employment
+	err = json.Unmarshal([]byte(employmentsString), &employments)
+	if err != nil {
+		return errors.Wrap(err, "parsing employments")
+	}
+
 	c.userRoleKey = usr
 	c.xsrfToken = rvt
+	c.Employments = employments
 
 	return nil
 }
