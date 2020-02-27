@@ -18,18 +18,17 @@ func main() {
 				Usage: "add a new hour report",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:        "duration",
-						Aliases:     []string{"d"},
-						Usage:       "number of hours to report, formatted as 8h30m. Will be ignored if both start and end time are defined.",
-						Value:       "8h",
-						DefaultText: "",
+						Name:    "duration",
+						Aliases: []string{"d"},
+						Usage:   "`DURATION` to report, formatted as 8h30m. Will be ignored if both start and end time are defined.",
+						Value:   "8h",
 					},
 					&cli.TimestampFlag{
 						Name:        "start",
 						Aliases:     []string{"s"},
 						Layout:      "15:04",
 						Usage:       "Set workday start to `TIME`.",
-						DefaultText: "now - HOURS",
+						DefaultText: "now - DURATION",
 					},
 					&cli.TimestampFlag{
 						Name:        "end",
