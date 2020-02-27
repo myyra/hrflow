@@ -41,8 +41,7 @@ password: PASSWORD
 ### Homebrew (macOS and Linux)
 
 ```
-brew tap myyra/hrflow https://github.com/myyra/hrflow
-brew install hrflow
+brew install myyra/tap/hrflow
 ```
 
 ### Go
