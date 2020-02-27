@@ -16,13 +16,13 @@ USAGE:
    hrflow report [command options] [arguments...]
 
 OPTIONS:
-   --duration value, -d value     number of hours to report, formatted as 8h30m. Will be ignored if both start and end time are defined. (default: "8h")
-   --start TIME, -s TIME          Set workday start to TIME. (default: now - HOURS)
-   --end TIME, -e TIME            Set workday end to TIME. (default: now)
-   --project PROJECT, -p PROJECT  which PROJECT to assign to the report. (default: none)
-   --comment COMMENT, -c COMMENT  assign a COMMENT to the report. (default: empty)
-   --date DATE                    DATE for the report, format 'd.M.' (years not supported) (default: today)
-   --help, -h                     show help (default: false)
+   --duration DURATION, -d DURATION  DURATION to report, formatted as 8h30m. Will be ignored if both start and end time are defined. (default: "8h")
+   --start TIME, -s TIME             Set workday start to TIME. (default: now - DURATION)
+   --end TIME, -e TIME               Set workday end to TIME. (default: now)
+   --project PROJECT, -p PROJECT     which PROJECT to assign to the report. (default: none)
+   --comment COMMENT, -c COMMENT     assign a COMMENT to the report. (default: empty)
+   --date DATE                       DATE for the report, format 'd.M.' (years not supported) (default: today)
+   --help, -h                        show help (default: false)
 ```
 
 #### Quickly Reporting 8 Hours
