@@ -44,6 +44,14 @@ func report(c *cli.Context) error {
 		start = &t
 	}
 
+	hourly := c.Bool("hourly")
+	var salaryGroupValue string
+	if hourly {
+		salaryGroupValue = "11000"
+	} else {
+		salaryGroupValue = "99002"
+	}
+
 	comment := c.String("comment")
 	p := c.String("project")
 	var project *string
@@ -60,7 +68,7 @@ func report(c *cli.Context) error {
 		return errors.Wrap(err, "authentication failed")
 	}
 
-	err = client.NewWorkLog(*start, *end, comment, project)
+	err = client.NewWorkLog(*start, *end, salaryGroupValue, comment, project)
 	if err != nil {
 		return errors.Wrap(err, "creating work log")
 	}

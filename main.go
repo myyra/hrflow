@@ -56,6 +56,11 @@ func main() {
 						Usage:       "`DATE` for the report, format 'd.M.' (years not supported)",
 						DefaultText: "today",
 					},
+					&cli.BoolFlag{
+						Name:  "hourly",
+						Value: false,
+						Usage: "Report units as an hourly worker, also won't include 30 minute lunch in the duration.",
+					},
 				},
 				Action: report,
 			},
