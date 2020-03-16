@@ -44,12 +44,23 @@ func report(c *cli.Context) error {
 		start = &t
 	}
 
+	hourly := c.Bool("hourly")
+	var salaryGroupValue string
+	if hourly {
+		salaryGroupValue = "11000"
+	} else {
+		salaryGroupValue = "99002"
+	}
+
 	comment := c.String("comment")
 	p := c.String("project")
 	var project *string
 	if len(p) != 0 {
 		project = &p
 	}
+
+	// Lunch is only applicable for monthly workers.
+	lunch := !hourly
 
 	client, err := clientFromConfig()
 	if err != nil {
@@ -60,7 +71,7 @@ func report(c *cli.Context) error {
 		return errors.Wrap(err, "authentication failed")
 	}
 
-	err = client.NewWorkLog(*start, *end, comment, project)
+	err = client.NewWorkLog(*start, *end, salaryGroupValue, comment, project, lunch)
 	if err != nil {
 		return errors.Wrap(err, "creating work log")
 	}

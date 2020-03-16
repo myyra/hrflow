@@ -26,12 +26,12 @@ type WorkLogRow struct {
 	MainSalaryFactorID int64 `json:"mainSalaryFactorId"`
 	// mainAmount is the number of hours that should be reported as a string.
 	MainAmount string `json:"mainAmount"`
-	// mainUnit is always DURATION (the default?).
+	// mainUnit is DURATION for monthly workers, and HOURS for hourly workers.
 	MainUnit       string          `json:"mainUnit"`
 	WorkLogFactors []WorkLogFactor `json:"workLogFactors"`
-
-	StartTime        string `json:"startTime"`
-	EndTime          string `json:"endTime"`
+	StartTime      string          `json:"startTime"`
+	EndTime        string          `json:"endTime"`
+	// 99002 for DURATION (monthly workers), 11000 for HOURS (hourly workers)
 	SalaryGroupValue string `json:"salaryGroupValue"`
 	// status is NEW if being created.
 	Status string `json:"status"`
@@ -224,7 +224,7 @@ type newWorkLogResponse struct {
 	ActionSuccessful bool `json:"actionSuccessful,omitempty"`
 }
 
-func (c *Client) NewWorkLog(startTime, endTime time.Time, comment string, project *string) error {
+func (c *Client) NewWorkLog(startTime, endTime time.Time, salaryGroupValue string, comment string, project *string, lunch bool) error {
 
 	if len(c.Employments) == 0 {
 		return errors.New("no employment found, cannot log hours")
@@ -233,7 +233,11 @@ func (c *Client) NewWorkLog(startTime, endTime time.Time, comment string, projec
 	employment := c.Employments[0]
 
 	// Salary group is always the same, but probably shouldn't be hardcoded. No good way to get it right now.
-	row := c.NewWorkLogRow(employment.EmploymentID, employment.PersonID, employment.GroupID, startTime, endTime, "99002", comment, project)
+	row := c.NewWorkLogRow(employment.EmploymentID, employment.PersonID, employment.GroupID, startTime, endTime, salaryGroupValue, comment, project)
+	if !lunch {
+		row.LunchBreak = 0
+		row.CutLunchFromAmount = "N"
+	}
 	rowJSON, err := json.Marshal(row)
 	if err != nil {
 		return errors.Wrap(err, "marshaling work log row")
