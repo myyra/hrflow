@@ -26,12 +26,12 @@ type WorkLogRow struct {
 	MainSalaryFactorID int64 `json:"mainSalaryFactorId"`
 	// mainAmount is the number of hours that should be reported as a string.
 	MainAmount string `json:"mainAmount"`
-	// mainUnit is always DURATION (the default?).
+	// mainUnit is DURATION for monthly workers, and HOURS for hourly workers.
 	MainUnit       string          `json:"mainUnit"`
 	WorkLogFactors []WorkLogFactor `json:"workLogFactors"`
-
-	StartTime        string `json:"startTime"`
-	EndTime          string `json:"endTime"`
+	StartTime      string          `json:"startTime"`
+	EndTime        string          `json:"endTime"`
+	// 99002 for DURATION (monthly workers), 11000 for HOURS (hourly workers)
 	SalaryGroupValue string `json:"salaryGroupValue"`
 	// status is NEW if being created.
 	Status string `json:"status"`
