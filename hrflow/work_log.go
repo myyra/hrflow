@@ -224,7 +224,7 @@ type newWorkLogResponse struct {
 	ActionSuccessful bool `json:"actionSuccessful,omitempty"`
 }
 
-func (c *Client) NewWorkLog(startTime, endTime time.Time, salaryGroupValue string, comment string, project *string) error {
+func (c *Client) NewWorkLog(startTime, endTime time.Time, salaryGroupValue string, comment string, project *string, lunch bool) error {
 
 	if len(c.Employments) == 0 {
 		return errors.New("no employment found, cannot log hours")
@@ -234,6 +234,10 @@ func (c *Client) NewWorkLog(startTime, endTime time.Time, salaryGroupValue strin
 
 	// Salary group is always the same, but probably shouldn't be hardcoded. No good way to get it right now.
 	row := c.NewWorkLogRow(employment.EmploymentID, employment.PersonID, employment.GroupID, startTime, endTime, salaryGroupValue, comment, project)
+	if !lunch {
+		row.LunchBreak = 0
+		row.CutLunchFromAmount = "N"
+	}
 	rowJSON, err := json.Marshal(row)
 	if err != nil {
 		return errors.Wrap(err, "marshaling work log row")
