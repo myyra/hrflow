@@ -22,6 +22,7 @@ OPTIONS:
    --project PROJECT, -p PROJECT     which PROJECT to assign to the report. (default: none)
    --comment COMMENT, -c COMMENT     assign a COMMENT to the report. (default: empty)
    --date DATE                       DATE for the report, format 'd.M.' (years not supported) (default: today)
+   --hourly                          Report units as an hourly worker, also won't include 30 minute lunch in the duration. (default: false)
    --help, -h                        show help (default: false)
 ```
 
