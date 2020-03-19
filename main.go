@@ -15,6 +15,7 @@ func main() {
 		Before:  checkConfig,
 		Commands: []*cli.Command{
 			reportCommandFactory(),
+			calendarCommandFactory(),
 		},
 		EnableBashCompletion: true,
 	}
