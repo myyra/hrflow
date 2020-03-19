@@ -10,7 +10,7 @@ import (
 func main() {
 
 	app := &cli.App{
-		Version: "v0.2.0",
+		Version: "v0.3.0",
 		Usage:   "A CLI for HR Flow",
 		Before:  checkConfig,
 		Commands: []*cli.Command{
