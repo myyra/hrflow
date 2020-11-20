@@ -86,7 +86,7 @@ func (c *Client) Calendar(startDate, endDate time.Time) ([]CalendarDay, error) {
 	getCalendarBody := url.Values{}
 	getCalendarBody.Add("startDate", startDate.Format(hrFlowDateFormat))
 	getCalendarBody.Add("endDate", endDate.Format(hrFlowDateFormat))
-	getCalendarRequest, _ := http.NewRequest("POST", "https://hrflow.accountor.fi/KirjaamoWeb/calendar/GetCalendar", strings.NewReader(getCalendarBody.Encode()))
+	getCalendarRequest, _ := http.NewRequest("GET", "https://hrflow.accountor.fi/KirjaamoWeb/calendar/GetCalendar", strings.NewReader(getCalendarBody.Encode()))
 	getCalendarRequest.Header.Add("X-XSRF-TOKEN", c.xsrfToken)
 	getCalendarRequest.Header.Add("Accept", "application/json")
 	getCalendarRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded; charset=utf-8")
@@ -98,7 +98,7 @@ func (c *Client) Calendar(startDate, endDate time.Time) ([]CalendarDay, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		return nil, fmt.Errorf("http status error %d %s", resp.StatusCode, resp.Status)
+		return nil, fmt.Errorf("http status error %s", resp.Status)
 	}
 
 	var response []hrCalendarDay
