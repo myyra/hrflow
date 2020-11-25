@@ -6,7 +6,9 @@ import (
 )
 
 const (
+	// 2006-01-02 15:04:05.000
 	hrFlowTimeFormat = "2006-01-02 15:04:05.000"
+	// 02.01.2006
 	hrFlowDateFormat = "02.01.2006"
 )
 

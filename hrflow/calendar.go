@@ -3,7 +3,6 @@ package hrflow
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -93,7 +92,7 @@ func (c *Client) Calendar(startDate, endDate time.Time) ([]CalendarDay, error) {
 
 	resp, err := c.HttpClient.Do(getCalendarRequest)
 	if err != nil {
-		log.Println(err)
+		return nil, errors.Wrap(err, "doing request")
 	}
 	defer resp.Body.Close()
 
