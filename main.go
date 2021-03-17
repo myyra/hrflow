@@ -16,6 +16,7 @@ func main() {
 		Commands: []*cli.Command{
 			reportCommandFactory(),
 			calendarCommandFactory(),
+			balanceCommandFactory(),
 		},
 		EnableBashCompletion: true,
 	}

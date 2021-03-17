@@ -96,6 +96,7 @@ func (c *Client) Absences(employments []Employment, startDate, endDate time.Time
 	if absenceResponse.Error != nil {
 		return nil, errors.Errorf("hrflow error: %s", *absenceResponse.Error)
 	}
+	fmt.Println(absenceResponse.AbsenceInfos)
 
 	absences, err := convertAbsences(*absenceResponse.AbsenceInfos)
 	if err != nil {
